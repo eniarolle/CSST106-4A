@@ -136,7 +136,7 @@ display_image('Original MRI Scan', image)
 
 # Step 3: Apply Gaussian Filtering for Noise Reduction
 blurred_image = cv2.GaussianBlur(image, (5, 5), 0)
-display_image('Blurred MRI Scan (Noise Reduction)', blurred_image)
+display_image('Blurred MRI Scan (Noise Reduction)', blurred_image) 
 
 ![image](https://github.com/user-attachments/assets/eea729ce-2099-433d-b7bd-da33f3ad32c1)
 
