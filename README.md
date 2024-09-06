@@ -1,3 +1,12 @@
+
+
+
+https://github.com/user-attachments/assets/8f84d0f8-7a68-456c-9db4-bd080ab30306
+
+
+
+
+
 # Introduction to Computer Vision
 It can be defined as the similar ability of computers in understanding and interpreting visual information as would be done by human beings. It includes reading of texts, identification of faces or objects, determination of the context an image or a video depicts.
 Artificial Intelligence and Computer Vision are somewhat closely related in that they quite frequently apply AI techniques, most of which involve machine learning to evaluate and comprehend visual data. Through the use of machine learning, a computer can "learn" to identify various forms of patterns and features in visual data, including edges, shapes, and colors.
