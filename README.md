@@ -105,8 +105,8 @@ Some basic image processing techniques have been very useful in the critical fie
 - Segmented Tumor: The desired region where thresholding is to be done in order to get the tumor.
 - Tumour Contouring: It will outline the periphery of the tumour so the diagnosis is much easier or it helps in surgical planning.
 #  Implementation Creation
-Problem: Identifying and Highlighting Tumor Boundaries in MRI Scans
-Objective:To detect and outline the tumor boundaries in an MRI scan to assist in diagnosis and treatment planning.
+- Problem: Identifying and Highlighting Tumor Boundaries in MRI Scans
+- Objective: To detect and outline the tumor boundaries in an MRI scan to assist in diagnosis and treatment planning.
 # Image Processing Model Steps:
 - Load and Preprocess MRI Image: The image is first read and some basic preprocessing to remove some noise may be performed.
 - Reduce Noise: It is used to smoothen the image, reducing noise by applying Gaussian filtering.
