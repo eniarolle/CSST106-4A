@@ -1,0 +1,52 @@
+
+# Exercise 1: Harris Detection Corner
+``` python
+import cv2
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Load the image
+image = cv2.imread("/content/Buttercup_PPG_29.webp")
+
+# Converting the image into grayscale
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Apply Harris Corner Detection
+harris_corners = cv2.cornerHarris(gray_image, blockSize=2, ksize=3, k=0.04)
+
+# Dilate the result to mark the corners
+harris_corners = cv2.dilate(harris_corners, None)
+
+# Threshold for an optimal value, it may vary depending on the image
+threshold = 0.01 * harris_corners.max()
+
+# Create a copy of the original image to draw corners on
+image_with_corners = np.copy(image)
+
+# Get the coordinates of detected corners
+y, x = np.where(harris_corners > threshold)
+
+# Iterate through all the corners and draw larger circles on the image
+for i, j in zip(x, y):
+    cv2.circle(image_with_corners, (i, j), radius=5, color=(0, 0, 255), thickness=2)
+
+# Display the results
+plt.figure(figsize=(12, 6))
+
+plt.subplot(121)
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(122)
+plt.imshow(cv2.cvtColor(image_with_corners, cv2.COLOR_BGR2RGB))
+plt.title('Image with Detected Corners')
+plt.axis('off')
+
+plt.tight_layout()
+plt.show()
+```
+
+
+
+
