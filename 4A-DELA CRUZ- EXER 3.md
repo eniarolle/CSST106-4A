@@ -165,5 +165,68 @@ plt.show()
 ```
 ![{D5F5F19E-4E6E-4DF7-A2F3-2127AFD6816B}](https://github.com/user-attachments/assets/f4d642e3-89c4-4940-a17d-0d0af5c7f8ac)
 
+# Exercise 5: Image Segmentation using Watershed Algorithm
+# Task: The Watershed algorithm segments an image into distinct regions.
+- Load an image.
+- Apply a threshold to convert the image to binary.
+- Apply the Watershed algorithm to segment the image into regions.
+- Visualize and display the segmented regions.
+# Key Points:
+- Image segmentation is crucial for object detection and recognition.
+- The Watershed algorithm is especially useful for separating overlapping objects.
+These exercises extend the concepts covered in the document, introducing a mix of foundational and realtime applications. Let me know if you'd like more details on any specific task!
+
+```python
+image = cv2.imread('/content/Buttercup_PPG_29.webp')
+original = image.copy()
+
+gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+_, binary_image = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+kernel = np.ones((3, 3), np.uint8)
+opening = cv2.morphologyEx(binary_image, cv2.MORPH_OPEN, kernel, iterations=2)
+
+dist_transform = cv2.distanceTransform(opening, cv2.DIST_L2, 5)
+_, sure_fg = cv2.threshold(dist_transform, 0.7 * dist_transform.max(), 255, 0)
+
+sure_bg = cv2.dilate(opening, kernel, iterations=3)
+
+sure_fg = np.uint8(sure_fg)
+unknown_region = cv2.subtract(sure_bg, sure_fg)
+
+_, markers = cv2.connectedComponents(sure_fg)
+markers = markers + 1
+markers[unknown_region == 255] = 0
+
+markers = cv2.watershed(image, markers)
+image[markers == -1] = [0, 0, 255]  
+
+plt.figure(figsize=(15, 7))
+
+plt.subplot(1, 3, 1)
+plt.imshow(cv2.cvtColor(original, cv2.COLOR_BGR2RGB))
+plt.title('Original Image')
+plt.axis('off')
+
+plt.subplot(1, 3, 2)
+plt.imshow(binary_image, cmap='gray')
+plt.title('Binary Image')
+plt.axis('off')
+
+plt.subplot(1, 3, 3)
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+plt.title('Image Segmentation using Watershed Algorithm')
+plt.axis('off')
+
+plt.show()
+```
+![{00566900-9577-40C1-A349-B7D74463853F}](https://github.com/user-attachments/assets/83c6350e-2c4e-4577-b27a-9e78ac6eb616)
+
+# Conclusion
+The Watershed algorithm is a powerful image segmentation technique, particularly effective for distinguishing regions or objects in images where boundaries are not clearly defined. It treats the image as a topographical surface, with pixel intensities representing elevations. Segmentation is achieved by "flooding" the surface from predefined markers in areas of interest. When floods from different markers meet, watershed lines or boundaries form, dividing the image into distinct segments. As the algorithm progresses, the final segmentation result is produced.
+
+One key advantage of the Watershed algorithm is its ability to accurately segment overlapping or touching objects, which simpler methods often struggle to handle. However, the algorithm can be highly sensitive to noise and can lead to over-segmentation if the initial markers or gradient definitions are not properly set. To mitigate this, noise reduction techniques or markers derived from other methods, like distance transforms or edge detection, are commonly used before applying the algorithm. Overall, when combined with these techniques, the Watershed algorithm proves to be a robust tool for precise image segmentation, especially in complex cases.
+
 
 
